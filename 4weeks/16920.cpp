@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int N, M, P, zero=0;
+int N, M, P;
 int len[10];
 int field[1002][1002];
 queue<pair<pair<int, int>, int>> player[10];
@@ -19,7 +19,6 @@ int main(void) {
         for(int j=0; j<M; j++) {
             if(line[j]=='.') {
                 field[i][j] = 0;
-                zero++;
             } else if(line[j]=='#') {
                 field[i][j] = -1;
             } else {
@@ -30,7 +29,7 @@ int main(void) {
         }
     }
     int t=1;
-    bool check;
+    bool check=true;
     while(check) {
         check = false;
         for(int t=1; t<=P; t++) {
@@ -45,6 +44,9 @@ int main(void) {
                 go = player[t].front().second;
                 player[t].pop();
                 if(go==0) {
+                    if(playerTmp[t].front().first.first==x &&
+                        playerTmp[t].front().first.second==y &&
+                        playerTmp[t].front().second==len[r]) continue;
                     playerTmp[t].push({{x, y}, len[t]});
                     check = true;
                     continue;
@@ -53,7 +55,6 @@ int main(void) {
                     r=x+dx[d]; c=y+dy[d];
                     if(r<0 || c<0 || r>=N || c>=M || field[r][c]!=0) continue;
                     field[r][c]=t;
-                    zero--;
                     player[t].push({{r,c}, go-1});
                 }
             }
@@ -64,6 +65,7 @@ int main(void) {
             if(field[i][j]>0) ans[field[i][j]]++;
         }
     }
-    for(int i=1; i<=P; i++) cout << ans[i] << ' ';
+    for(int i=1; i<P; i++) cout << ans[i] << ' ';
+    cout << ans[P];
     return 0;
 }
