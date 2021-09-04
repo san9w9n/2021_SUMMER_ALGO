@@ -16,23 +16,6 @@ int dist(int Ac, int Er, int Ec) {
     return (N-Er)+abs(Ec-Ac);
 }
 
-void debug() {
-    cout << "--------------------------\n";
-    for(int i=0; i<N; i++) {
-        for(int j=0; j<M; j++) cout << field[i][j] << ' ';
-        cout << '\n';
-    }
-    bool dede[17] = {false, };
-    for(int i=0; i<3; i++) {
-        dede[Archur[i]] = true;
-    }
-
-    for(int i=0; i<M; i++) {
-        if(dede[i]) cout << 5 << ' ';
-        else cout << "  ";
-    }
-    cout << '\n';
-}
 
 int solve() {
     int time = 0;
